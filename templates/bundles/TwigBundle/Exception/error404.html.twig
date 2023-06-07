@@ -1,0 +1,19 @@
+{# Utilisation du squelette "base.html.twig" #}
+{% extends"base.html.twig" %}
+
+{# Définition du titre de la page #}
+{% block title %}Page introuvable : erreur 404{% endblock %}
+
+{# Remplissage du body #}
+{% block body %}
+
+    {# Grille Bootstrap #}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 text-center">
+                <img src="{{ asset('images/404.jpg') }}" alt="Erreur 404" class="img-fluid my-3">
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
