@@ -45,7 +45,7 @@
                         <div class="dropdown-menu" aria-labelledby="profil-dropdown">
 
                             {# Lien de la page mon profil #}
-                            <a class="dropdown-item" href="#"><i class="fas fa-users-cog me-1"></i>Mon Profil</a>
+                            <a class="dropdown-item" href="{{ path('main_profil') }}"><i class="fas fa-users-cog me-1"></i>Mon Profil</a>
 
                             {# Séparateur #}
                             <div class="dropdown-divider"></div>
@@ -64,7 +64,7 @@
                         <a href="{{ path('app_register') }}" class="nav-link{{ route == 'app_register' ? ' active' }}">
                             <i class="fa-solid fa-user-plus mx-1"></i>Inscription
                         </a>
-                    </li>:
+                    </li>
 
                     {# Lien de la page de connexion #}
                     <li class="nav-item">
