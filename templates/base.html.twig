@@ -1,16 +1,32 @@
+{# On crée un variable Twig "route" qui contiendra le nom de la route actuellment chargée (servira pour le menu entre autre) #}
+{% set route = app.request.attributes.get('_route') %}
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        {#  Affichage du titre de la page venant de la vue via le block "title", suivi du nom du site collé à coté  #}
+    <title>{% block title %}{% endblock %} - Le Blog de Batman</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        {#  Inclusion de Bootsrap  #}
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+        {# Inclusion du style css perso #}
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+        {# Block pour permettre aux pages de rajouter individuellement des fichiers CSS additionnels #}
+    {% block css %}{% endblock %}
+</head>
+<body>
 
-        {% block javascripts %}
-        {% endblock %}
-    </head>
-    <body>
+        {#Inclusion du menu principal du site #}
+        {% include 'partials/_main_navbar.html.twig' %}
+
+        {# Inclusion du contenu des pages (via le block "body" ) #}
         {% block body %}{% endblock %}
-    </body>
+
+    {# Inclusion du fichier JS Bootstrap #}
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    {# Block pour permettre aux pages de rajouter individuellement des fichiers JS additionnels #}
+    {% block js %}{% endblock %}
+</body>
 </html>
