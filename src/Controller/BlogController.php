@@ -38,20 +38,19 @@ class BlogController extends AbstractController
         $form->handleRequest($request);
 
         // Si le formulaire a bien été envoyé et sans erreurs
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
 
             // On termine d'hydrater l'article
             $newArticle
                 ->setPublicationDate(new \DateTime())
-                ->setAuthor( $this->getUser() )
-                ;
+                ->setAuthor($this->getUser());
 
             // Sauvegarde en base de données grâce au manager des entités
-                $em = $doctrine->getManager();
-                $em->persist($newArticle);
-                $em->flush();
+            $em = $doctrine->getManager();
+            $em->persist($newArticle);
+            $em->flush();
 
-                // Message flash de succès
+            // Message flash de succès
             $this->addFlash('success', 'Article publié avec succès !');
 
             //TODO: penser à rediriger sur la page qui montre le nouvel article
@@ -62,4 +61,24 @@ class BlogController extends AbstractController
             'new_publication_form' => $form->createView(),
         ]);
     }
+
+
+    /**
+     * Contrôleur de la page qui liste tous les articles
+     */
+    #[Route('/publications/liste/', name: 'publication_list')]
+    public function publicationList(ManagerRegistry $doctrine): Response
+    {
+
+        // Récupération du repository des articles
+        $articleRepo = $doctrine->getRepository(Article::class);
+
+        // On demande au repository de nous donner tous les articles qui sont en BDD
+        $articles = $articleRepo->findAll();
+
+        return $this->render('blog/publication_list.html.twig', [
+            'articles' => $articles,
+        ]);
+    }
+
 }

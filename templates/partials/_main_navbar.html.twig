@@ -37,7 +37,7 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 
                         {# Bouton de la page qui liste tous les articles #}
-                        <li><a class="dropdown-item" href="##################">Publications</a></li>
+                        <li><a class="dropdown-item" href="{{ path('blog_publication_list') }}">Publications</a></li>
 
 
                         {# Affichage des boutons réservés aux administrateurs #}
@@ -47,7 +47,7 @@
                             <li><hr class="dropdown-divider"></li>
 
                             {# Bouton de la page pour créer un nouvel article #}
-                            <li><a class="dropdown-item" href="{{path('blog_new_publication')}}">Nouvelle Publication</a></li>
+                            <li><a class="dropdown-item" href="{{ path('blog_new_publication')}}">Nouvelle Publication</a></li>
 
                         {% endif %}
 
