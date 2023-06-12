@@ -9,5 +9,5 @@ fos_ck_editor:
         general:
             langage: fr
             toolbar: standard #fonctionnalité des boutons, possibilité de mettre aussi -> basic ou full
-            uiColor: "#DC7633 "
+            uiColor: "#DC7633"
             height: 300px
