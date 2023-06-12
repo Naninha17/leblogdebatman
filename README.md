@@ -31,6 +31,11 @@ Le commande fixtures créera :
 * Un compte admin (email : a@a.a , password : 'Azerty12!')
 * 10 comptes utilisateur (email aléatoire , password : 'Azerty12!')
 
+### Installation fichier front-end bundles (CKEditor)
+````
+symfony console assets:install public
+````
+
 ### Lancer le serveur
 ```
 symfony serve
