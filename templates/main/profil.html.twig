@@ -49,7 +49,7 @@
                                 <li class="list-group-item bg-black text-white">Adresse Email : <span class="text-info">{{ app.user.email }}</span></li>
                                 <li class="list-group-item bg-black text-white">Pseudonyme : <span class="text-info">{{ app.user.pseudonym }}</span></li>
                                 <li class="list-group-item bg-black text-white">Date d'inscription : <span class="text-info">
-                                        {{ app.user.registrationDate|date ('d/m/y à H\\i') }}</span></li>
+                                        {{ app.user.registrationDate|date ('d/m/y à H\\h\s') }}</span></li>
                                 <li class="list-group-item bg-black text-white">
                                     Compte :
                                     <span class="text-info">{{ is_granted('ROLE_ADMIN') ? 'Administrateur' : 'Utilisateur' }}</span>
