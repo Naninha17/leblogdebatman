@@ -5,9 +5,11 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Form\NewPublicationFormType;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
@@ -69,14 +71,27 @@ class BlogController extends AbstractController
      * Contrôleur de la page qui liste tous les articles
      */
     #[Route('/publications/liste/', name: 'publication_list')]
-    public function publicationList(ManagerRegistry $doctrine): Response
+    public function publicationList(ManagerRegistry $doctrine, Request $request, PaginatorInterface $paginator): Response
     {
+        $requestedPage = $request->query->getInt('page', 1);
 
-        // Récupération du repository des articles
-        $articleRepo = $doctrine->getRepository(Article::class);
+        // Si le numéro de page demandé dans l'url est inférieur à 1, erreur 404
+        if($requestedPage < 1){
+            throw new NotFoundHttpException();
+        }
 
-        // On demande au repository de nous donner tous les articles qui sont en BDD
-        $articles = $articleRepo->findAll();
+        // Récupération du manager des entités
+        $em = $doctrine->getManager();
+
+        // Création d'une requête qui servira au paginator pour récupérer les articles de la page courante
+        $query = $em->createQuery('SELECT a FROM App\Entity\Article a ORDER BY a.publicationDate DESC');
+
+        // On stocke dans $articles les 10 articles de la page demandée dans l'URL
+        $articles = $paginator->paginate(
+            $query,     // Requête de selection des articles en BDD
+            $requestedPage, // Numéro de la page dont on veux les articles
+            10      // Nombre d'articles par page
+        );
 
         return $this->render('blog/publication_list.html.twig', [
             'articles' => $articles,
