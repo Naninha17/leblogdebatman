@@ -23,6 +23,14 @@ symfony console doctrine:database:create
 symfony console doctrine:migrations:migrate
 ```
 
+### Création des fixtures
+````
+symfony console doctrine:fixtures:load
+````
+Le commande fixtures créera : 
+* Un compte admin (email : a@a.a , password : 'Azerty12!')
+* 10 comptes utilisateur (email aléatoire , password : 'Azerty12!')
+
 ### Lancer le serveur
 ```
 symfony serve
