@@ -14,4 +14,9 @@
 ###< phpunit/phpunit ###
 ##> exclusions customs ###
 /.idea/
+/public/images/profils/*
+!/public/images/profils/.gitignore
 ##< exclusions customs ###
+###> liip/imagine-bundle ###
+/public/media/cache/
+###< liip/imagine-bundle ###

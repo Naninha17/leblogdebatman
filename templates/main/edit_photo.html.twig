@@ -1,0 +1,37 @@
+{# Utilisation du squelette "base.html.twig" #}
+{% extends"base.html.twig" %}
+
+{# Définition du titre de la page #}
+{% block title %}Modification de la photo de profil{% endblock %}
+
+{# Remplissage du body #}
+{% block body %}
+
+    {# Grille Bootstrap #}
+    <div class="container-fluid">
+        {# Titre h1 de la page #}
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center my-5">Modification de la photo de profil</h1>
+            </div>
+
+            {# Lien retour #}
+            <div class="row">
+                <div class="col-12 text-center mb-4">
+                    <a href="{{ path('main_profil') }}" class="text-decoration-none"></a>
+                </div>
+            </div>
+            {# Affichage du formulaire #}
+            <div class="row">
+                <div class="col-12 col-md-8 mx-auto bg-black p-3">
+                    <div class="row">
+                        <div class="col-12 col-md-6 mx-auto">
+                            {{ form( edit_photo_form ) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+{% endblock %}
