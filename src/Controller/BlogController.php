@@ -214,4 +214,35 @@ class BlogController extends AbstractController
 
     }
 
+    /**
+     * Contrôleur de la page permettant aux admins de supprimer un commentaire
+     *
+     * Accès réservé aux administrateurs (ROLE_ADMIN)
+     */
+
+    #[Route('/commentaires/suppression/{id}', name: 'comment_delete')]
+    #[IsGranted('ROLE_ADMIN')]
+    public function commentDelete(Comment $comment, Request $request, ManagerRegistry $doctrine): Response
+    {
+
+        if(!$this->isCsrfTokenValid('blog_comment_delete_' . $comment->getId(), $request->query->get('csrf_token'))){
+
+            $this->addFlash('error', 'Token sécurité invalide, veuillez ré-essayer.');
+
+        } else {
+
+            $em = $doctrine->getManager();
+            $em->remove($comment);
+            $em->flush();
+
+            $this->addFlash('success', 'Le commentaire a été supprimé avec succès !');
+
+        }
+
+        return $this->redirectToRoute('blog_publication_view', [
+            'slug' => $comment->getArticle()->getSlug(),
+        ]);
+
+    }
+
 }
