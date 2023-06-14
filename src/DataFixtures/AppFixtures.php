@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Article;
+use App\Entity\Comment;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -57,6 +58,9 @@ class AppFixtures extends Fixture
 
             $manager->persist($user);
 
+            // Stockage des comptes dans un array pour créer des commentaires plus bas dans le fichier
+            $users[] = $user;
+
         }
 
         // Création de 200 articles
@@ -72,6 +76,25 @@ class AppFixtures extends Fixture
                 ;
 
             $manager->persist( $article );
+
+            // Création entre 0 et 10 commentaires avec des données aléatoires
+            $rand = rand(0, 10);
+
+            for($j = 0; $j < $rand; $j++){
+
+                $comment = new Comment();
+
+                $comment
+                    ->setArticle( $article )
+                    ->setPublicationDate( $faker->dateTimeBetween('-1 year', 'now') )
+                    ->setAuthor( $faker->randomElement($users) )
+                    ->setContent( $faker->paragraph(5) )
+                    ;
+
+                $manager->persist( $comment );
+
+
+            }
 
         }
 

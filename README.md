@@ -27,9 +27,11 @@ symfony console doctrine:migrations:migrate
 ````
 symfony console doctrine:fixtures:load
 ````
-Le commande fixtures créera : 
+La commande fixtures créera : 
 * Un compte admin (email : a@a.a , password : 'Azerty12!')
 * 10 comptes utilisateur (email aléatoire , password : 'Azerty12!')
+* 200 articles
+* Entre 0 et 10 commentaires par article
 
 ### Installation fichier front-end bundles (CKEditor)
 ````

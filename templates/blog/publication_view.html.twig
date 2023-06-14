@@ -65,5 +65,63 @@
 
         </div>
 
+        {# Espace commentaire #}
+
+        <div class="row">
+
+            <div class="col-12 col-md-8 mx-auto">
+                <div class="bg-black p-4 my-4">
+
+                    <h2 class="text-center mb-5">Commentaires ({{ article.comments|length }})</h2>
+
+                    {% for comment in article.comments %}
+
+                        <div class="card my-3 bg-dark text-light">
+                            <div class="card-body row">
+
+                                {# Photo de profil #}
+                                <div class="px-0 mx-2 d-flex justify-content-center align-items-center comment-profil-photo bg-black">
+
+                                    {# Affichage de la photo de profil de l'auteur, ou de la photo par défaut s'il n'en pas #}
+                                    {% if comment.author.photo is null %}
+                                        <img class= "img-fluid" src="{{ asset('images/profil_default.jpg')|imagine_filter('comment') }}" alt="">
+                                    {% else %}
+                                        <img class= "img-fluid" src="{{ asset('images/profils/' ~ comment.author.photo)|imagine_filter('comment') }}" alt="">
+                                    {% endif %}
+
+
+                                </div>
+
+                                {# Date et auteur de l'article #}
+                                <div class="col-12 col-sm mt-2 mt-sm-0">
+                                    <footer class="blockquote-footer mt-0 mb-4">Ajouté par <strong class="text-light mr-1">{{ comment.author.pseudonym }}</strong>
+                                        <br class="d-sm-none">Le <strong class="text-light">{{ comment.publicationDate|date ('d/m/Y à H\\hi') }}</strong></footer>
+                                    {# Affichage du contenu du commentaire, en convertissant les retours à la ligne par des <br> html avec le filtre Twig "nl2br" #}
+                                    <p>{{ comment.content|nl2br }}</p>
+                                    {# " nl2br " = "new line to br" qui signifie faire des retour a la ligne comme le "<br>" mais version twig #}
+                                </div>
+
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    {% if app.user %}
+
+                        <h2 class="text-center my-5">Écrire un commentaire</h2>
+                        {{ form(comment_create_form) }}
+
+                    {% else %}
+
+                        <p class="text-center text-info mt-4">
+                            Vous devez <a href="{{ path('app_login') }}">vous connecter</a> pour laisser un commentaire.
+                        </p>
+
+                    {% endif %}
+
+                </div>
+            </div>
+
+        </div>
+
     </div>
 {% endblock %}
