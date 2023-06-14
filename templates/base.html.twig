@@ -1,7 +1,8 @@
 {# On crée un variable Twig "route" qui contiendra le nom de la route actuellment chargée (servira pour le menu entre autre) #}
 {% set route = app.request.attributes.get('_route') %}
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-bs-theme="dark">
+{#data-bs-theme est un nouveau thème bootstrap qui permet de mettre les couleurs en plus foncé#}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
