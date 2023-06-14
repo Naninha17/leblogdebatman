@@ -1,31 +1,96 @@
 {# Utilisation du squelette "base.html.twig" #}
-{% extends"base.html.twig" %}
+{% extends "base.html.twig" %}
 
 {# Définition du titre de la page #}
 {% block title %}Accueil{% endblock %}
 
-{# Remplissage du body #}
+{# Remplissage du body de la page #}
 {% block body %}
 
-        {# Grille Bootstrap #}
+    {# Grille Bootstrap #}
     <div class="container-fluid">
+
         {# Titre h1 de la page #}
         <div class="row">
             <div class="col-12">
                 <h1 class="text-center my-5">{{ site_name }}</h1>
             </div>
         </div>
+
         {# Contenu lorem #}
         <div class="row">
             <div class="col-12 col-md-10 mx-auto">
 
-                <h2 class="text-center my-4">Lorem ipsum dolor sit amet.</h2>
+                <h2 class="text-center my-4">Lorem ipsum dolor sit amet, consectetur.</h2>
 
-                <p class="text-center"><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae deserunt doloribus ea error harum, illo ipsa molestias nesciunt nihil quaerat recusandae, sunt velit vitae. Beatae expedita maiores provident repellat vero?</span><span>Aliquam assumenda fugiat, labore magnam modi molestiae numquam optio quas totam. A aliquam animi corporis delectus distinctio dolorem enim illum iure laboriosam, minima nisi officia, possimus qui quia rem vitae?</span></p>
+                <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto autem consequuntur deleniti dignissimos doloremque enim id, ipsam iusto maiores nulla ratione sapiente sequi suscipit tempora tenetur velit vitae! Aliquid aspernatur commodi consequatur consequuntur deleniti eos expedita, itaque iure libero nemo nihil, nobis non numquam odit quia ratione saepe, tempora voluptate!</p>
+
             </div>
         </div>
-        {# Affichage de l'image fixe eb bandeau #}
+
+        {# Affichage de l'image fixe en bandeau #}
         <div class="row my-5 batman-cover"></div>
+
+        {# Affichage des derniers articles publiés #}
+        <div class="row">
+
+            <div class="col-12 col-md-8 mx-auto">
+
+                <div class="row">
+                    <h2 class="col-12 text-center">Dernières publications</h2>
+                </div>
+
+                {# Boucle pour parcourir tous les articles à afficher #}
+                {% for article in articles %}
+
+                    <div class="row">
+
+                        <div class="col-12">
+
+                            <div class="card my-3 bg-black">
+
+                                <div class="card-header">
+
+                                    {# Titre de l'article, cliquable vers la page détaillée de l'article #}
+                                    <a class="text-decoration-none" href="{{ path('blog_publication_view', {slug: article.slug}) }}"><i class="far fa-newspaper me-2"></i>{{ article.title }}</a>
+                                </div>
+
+                                <div class="card-body text-light">
+
+                                    <div class="mb-2">
+
+                                        {# Affichage du contenu de l'article, tronqué à 100 mots, sans balises html, suivi de "..." et d'un lien "lire la suite" #}
+                                        {{ article.content|striptags|excerpt(100) }}
+                                        <a class="text-decoration-none" href="{{ path('blog_publication_view', {slug: article.slug}) }}">Lire la suite</a>
+                                    </div>
+
+                                    {# Date et auteur de l'article #}
+                                    <footer class="blockquote-footer my-2">Publié le <strong>{{ article.publicationDate|date('d/m/Y à H\\hi') }}</strong> par <strong>{{ article.author.pseudonym }}</strong></footer>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        {# Contenu lorem #}
+        <div class="row mb-5">
+            <div class="col-12 col-md-10 mx-auto">
+
+                <h2 class="text-center my-4">Lorem ipsum dolor sit amet, consectetur.</h2>
+
+                <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto autem consequuntur deleniti dignissimos doloremque enim id, ipsam iusto maiores nulla ratione sapiente sequi suscipit tempora tenetur velit vitae! Aliquid aspernatur commodi consequatur consequuntur deleniti eos expedita, itaque iure libero nemo nihil, nobis non numquam odit quia ratione saepe, tempora voluptate!</p>
+
+            </div>
+        </div>
+
     </div>
 
 {% endblock %}
